@@ -1,0 +1,180 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://www.paypalobjects.com/webstatic/en_US/developer/docs/css/cardfields.css"
+    />
+    <script
+      src="https://www.paypal.com/sdk/js?components=buttons,hosted-fields&client-id=<%= clientId %>&intent=authorize"
+      data-client-token="<%= clientToken %>"
+    ></script>
+    <style type="text/css">
+     .card_field {
+       width: 50%;
+     }
+     #currency, #amount {
+       width: 50%;
+       padding: 6px;
+       border: 1px solid #ccc;
+       border-radius: 4px;
+       box-sizing: border-box;
+       margin-top: 6px;
+       margin-bottom: 16px;
+       resize: vertical;
+       height:40px;
+       background:white;
+       font-size:12px;
+       color:#3a3a3a;
+       font-family:helvetica, tahoma, calibri, sans-serif;
+     }
+    </style>
+  </head>
+  <body>
+    <div class="card_container">
+      <form id="card-form">
+        
+        <h3><%= merchant %></h3>
+        
+        Change: <a href="/merchant1">merchant1(Y)</a> /
+        <a href="/merchant2">merchant2(T)</a> /
+        <a href="/merchant3">merchant3(A)</a>
+        
+        <br />
+        <br />
+        
+        <label for="currency">Currency</label>
+        <div>
+          <select id="currency" name="currency">
+<option>AED</option>
+<option>ALL</option>
+<option>ANG</option>
+<option>AOA</option>
+<option>AUD</option>
+<option>AWG</option>
+<option>BAM</option>
+<option>BBD</option>
+<option>BGN</option>
+<option>BIF</option>
+<option>BMD</option>
+<option>BND</option>
+<option>BOB</option>
+<option>BRL</option>
+<option>BSD</option>
+<option>CAD</option>
+<option>CDF</option>
+<option>CHF</option>
+<option>CLP</option>
+<option>COP</option>
+<option>CRC</option>
+<option>CVE</option>
+<option>CZK</option>
+<option>DJF</option>
+<option>DKK</option>
+<option>DOP</option>
+<option>DZD</option>
+<option>EGP</option>
+<option>ETB</option>
+<option>EUR</option>
+<option>FJD</option>
+<option>FKP</option>
+<option>GBP</option>
+<option>GIP</option>
+<option>GMD</option>
+<option>GNF</option>
+<option>GTQ</option>
+<option>GYD</option>
+<option>HKD</option>
+<option>HNL</option>
+<option>HUF</option>
+<option>IDR</option>
+<option>ILS</option>
+<option>ISK</option>
+<option>JMD</option>
+<option selected>JPY</option>
+<option>KES</option>
+<option>KHR</option>
+<option>KMF</option>
+<option>KRW</option>
+<option>KYD</option>
+<option>LAK</option>
+<option>LKR</option>
+<option>MDL</option>
+<option>MGA</option>
+<option>MKD</option>
+<option>MNT</option>
+<option>MUR</option>
+<option>MVR</option>
+<option>MXN</option>
+<option>NAD</option>
+<option>NIO</option>
+<option>NOK</option>
+<option>NPR</option>
+<option>NZD</option>
+<option>PAB</option>
+<option>PEN</option>
+<option>PGK</option>
+<option>PHP</option>
+<option>PLN</option>
+<option>PYG</option>
+<option>QAR</option>
+<option>RON</option>
+<option>RSD</option>
+<option>SAR</option>
+<option>SBD</option>
+<option>SCR</option>
+<option>SEK</option>
+<option>SGD</option>
+<option>SHP</option>
+<option>SOS</option>
+<option>SRD</option>
+<option>SZL</option>
+<option>THB</option>
+<option>TJS</option>
+<option>TOP</option>
+<option>TTD</option>
+<option>TWD</option>
+<option>TZS</option>
+<option>USD</option>
+<option>UYU</option>
+<option>VND</option>
+<option>VUV</option>
+<option>WST</option>
+<option>XAF</option>
+<option>XCD</option>
+<option>XPF</option>
+<option>YER</option>
+          </select>
+        </div>
+        
+        <label for="amount">Amount</label>
+        <div>
+          <input type="number" id="amount" name="amount" value="1">
+        </div>
+        
+        <label for="3ds">3DS</label>
+        <div>
+          <input type="checkbox" id="3ds" name="3ds"> On
+        </div>
+        <br/>
+        
+        <label for="card-number">Card Number</label>
+        <div id="card-number" class="card_field"></div>
+        
+        <label for="expiration-date">Expiration Date</label>
+        <div id="expiration-date" class="card_field"></div>
+            
+        <label for="cvv">CVV</label>
+        <div id="cvv" class="card_field"></div>
+        
+        <br />
+        
+        <button value="submit" id="submit" class="btn">Pay</button>
+        
+      </form>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
