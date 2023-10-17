@@ -43,20 +43,17 @@ if (window.paypal.HostedFields.isEligible()) {
       
       number: {
         selector: "#card-number",
-        placeholder: "4111 1111 1111 1111",
-	prefill: '4813690000512134'
+        placeholder: "4111 1111 1111 1111"
       },
       
       cvv: {
         selector: "#cvv",
-        placeholder: "123",
-	prefill: '308'
+        placeholder: "123"
       },
       
       expirationDate: {
         selector: "#expiration-date",
-        placeholder: "MM/YY",
-	prefill: '0226'
+        placeholder: "MM/YY"
       }
     }
     
@@ -65,10 +62,11 @@ if (window.paypal.HostedFields.isEligible()) {
     document.querySelector("#card-form").addEventListener("submit", async (event) => {
       
       event.preventDefault();
+      document.getElementById('result').innerHTML = "Processing..."
       
       const obj = {}
       if (document.getElementById('3ds').checked) {
-	obj.contingencies = ['SCA_ALWAYS']
+        obj.contingencies = ['SCA_ALWAYS']
       }
       
       const submit_response = await cardFields.submit(obj)
@@ -77,22 +75,10 @@ if (window.paypal.HostedFields.isEligible()) {
         method: "post",
       })
       
-      const orderData = response.json()
+      const jsonData = await response.json()
+      console.dir(jsonData)
       
-      const errorDetail = Array.isArray(orderData.details) && orderData.details[0];
-            
-      if (errorDetail) {
-        var msg = "Sorry, your transaction could not be processed.";
-        
-        if (errorDetail.description)
-          msg += "\n\n" + errorDetail.description;
-        
-        if (orderData.debug_id) msg += " (" + orderData.debug_id + ")";
-        
-        console.log(msg)
-      }
-      
-      console.log('completed.')
+      document.getElementById('result').innerHTML = JSON.stringify(jsonData, null, 2)
       
     });
     
