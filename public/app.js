@@ -69,7 +69,11 @@ if (window.paypal.HostedFields.isEligible()) {
         obj.contingencies = ['SCA_ALWAYS']
       }
       
-      const submit_response = await cardFields.submit(obj)
+      try {
+        const submit_response = await cardFields.submit(obj)
+      } catch (err) {
+        document.getElementById('result').innerHTML = JSON.stringify(err, null, 2)
+      }
       
       const response = await fetch(`${merchant}/api/orders/${orderId}/authorize`, {
         method: "post",
