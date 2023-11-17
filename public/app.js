@@ -75,7 +75,7 @@ if (window.paypal.HostedFields.isEligible()) {
         document.getElementById('result').innerHTML = JSON.stringify(err, null, 2)
       }
       
-      const response = await fetch(`${merchant}/api/orders/${orderId}/authorize`, {
+      const response = await fetch(`${merchant}/api/orders/${orderId}/capture`, {
         method: "post",
       })
       

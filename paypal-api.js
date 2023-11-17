@@ -27,7 +27,7 @@ export async function createOrder(merchant, args) {
     },
     
     body: JSON.stringify({
-      intent: "AUTHORIZE",
+      intent: "CAPTURE",
       purchase_units: [
         {
           amount: {
@@ -86,8 +86,31 @@ export async function authorizePayment(merchant, orderId) {
 // Capture
 export async function capturePayment(merchant, orderId) {
   
+  console.log('[capturePayment]')
+  console.dir(orderId)
+  
   const accessToken = await generateAccessToken(merchant);
   
+  // Get order for 3DS
+  const urlGet = `${base}/v2/checkout/orders/${orderId}`;
+  
+  const responseGet = await fetch(urlGet, {
+    method: "get",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  
+  const responseGetJson = await responseGet.json()
+  if (responseGetJson.payment_source.card.authentication_result) {
+    const authResult = responseGetJson.payment_source.card.authentication_result
+    if (authResult.liability_shift !== 'POSSIBLE') {
+      return
+    }
+  }
+  
+  // Capture
   const url = `${base}/v2/checkout/orders/${orderId}/capture`;
   
   const response = await fetch(url, {
